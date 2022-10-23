@@ -1,0 +1,28 @@
+const canvas = document.getElementById("renderCanvas");
+const engine = new BABYLON.Engine(canvas, true);
+const scene = new BABYLON.Scene(engine);
+const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
+camera.attachControl(canvas, true);
+engine.runRenderLoop(function () {scene.render();});
+var box = BABYLON.MeshBuilder.CreateBox("box", {width:5, height:5, depth:10}, scene);
+const myMaterial = new BABYLON.StandardMaterial("myMaterial",scene);
+var w1 = BABYLON.MeshBuilder.CreateBox("box", {width:8, height:19, depth:0.3}, scene);
+var w2 = BABYLON.MeshBuilder.CreateBox("box", {width:8, height:19, depth:0.3}, scene);
+var w3 = BABYLON.MeshBuilder.CreateBox("box", {width:10, height:1.3, depth:0.3}, scene);
+const bl1 = new BABYLON.StandardMaterial("bl1",scene);
+bl1.diffuseColor = new BABYLON.Color3.Blue();
+const bl2 = new BABYLON.StandardMaterial("bl2",scene);
+bl2.diffuseColor = new BABYLON.Color3(0.96, 0.78, 0.57);
+w1.material = bl1;
+w2.material = bl1;
+w3.material = bl2;
+w1.position.x = 9;
+w2.position.x= -9;
+camera.position = new BABYLON.Vector3(15.06912992487003,9.436556653307784,-38.21712512930689);
+scene.clearColor = new BABYLON.Color3.Black();
+myMaterial.diffuseColor = new BABYLON.Color3(0.96, 0.78, 0.57);
+box.material =  myMaterial;
+window.addEventListener("resize", function () {
+  engine.resize();
+});
